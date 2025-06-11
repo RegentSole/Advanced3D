@@ -1,21 +1,31 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PendulumScript : MonoBehaviour
+public class Pendulum : MonoBehaviour
 {
-    public float swingSpeed = 1f;
     public float swingAngle = 45f;
+    public float speed = 1f;
+
+    private Quaternion startRotation;
+    private float timeOffset;
+
+    void Start()
+    {
+        startRotation = transform.rotation;
+        timeOffset = Random.Range(0f, 2f * Mathf.PI);
+    }
 
     void Update()
     {
-        transform.Rotate(new Vector3(0, swingSpeed * Time.deltaTime, 0), Space.World);
+        float angle = swingAngle * Mathf.Sin(Time.time * speed + timeOffset);
+        transform.rotation = startRotation * Quaternion.Euler(0, 0, angle);
     }
 
-    void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }

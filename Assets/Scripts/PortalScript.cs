@@ -1,24 +1,34 @@
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
-public class PortalScript : MonoBehaviour
+public class Portal : MonoBehaviour
 {
-    public GameObject panel;
-    public Vector3 teleportPosition;
+    public Transform destination;
+    public GameObject messagePanel;
+    public TMP_Text messageText;
+    public string message = "Портал активирован!";
 
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            other.gameObject.transform.position = teleportPosition;
-            panel.SetActive(true);
+            other.transform.position = destination.position;
+            ShowMessage();
         }
     }
 
-    void Update()
+    private void ShowMessage()
     {
-        if (Input.anyKeyDown && panel.activeInHierarchy)
+        messageText.text = message;
+        messagePanel.SetActive(true);
+    }
+
+    private void Update()
+    {
+        if (messagePanel.activeSelf && Input.anyKeyDown)
         {
-            panel.SetActive(false);
+            messagePanel.SetActive(false);
         }
     }
 }

@@ -1,21 +1,13 @@
 using UnityEngine;
-using System.Collections.Generic;
-using System.Collections;
 using UnityEngine.SceneManagement;
 
-public class DeathZoneScript : MonoBehaviour
+public class DeathZone : MonoBehaviour
 {
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            StartCoroutine(Death());
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
-    }
-
-    IEnumerator Death()
-    {
-        yield return new WaitForSeconds(2f);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

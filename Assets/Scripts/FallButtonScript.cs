@@ -6,7 +6,7 @@ public class FallButtonScript : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.gameObject.transform.position = new Vector3(other.gameObject.transform.position.x, -10f, other.gameObject.transform.position.z);
+            other.gameObject.transform.position = new Vector3(other.gameObject.transform.position.x, +25f, other.gameObject.transform.position.z);
         }
     }
 }
